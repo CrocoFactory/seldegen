@@ -1,0 +1,42 @@
+[tool.poetry]
+name = 'seldegen'
+version = '0.1.1'
+description = 'The package containing tools to warm up Web3-based project using Selenium'
+authors = ['Alexey <axbelenkov@gmail.com>']
+license = 'MIT'
+readme = 'README.md'
+repository = 'https://github.com/blnkoff/seldegen'
+homepage = 'https://github.com/blnkoff/seldegen'
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Developers',
+    'Topic :: Software Development :: Libraries :: Python Module',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3 :: Only',
+    'License :: OSI Approved :: MIT License',
+    'Operating System :: Microsoft :: Windows',
+    'Operating System :: MacOS'
+]
+packages = [{ include = 'seldegen' }]
+
+[tool.poetry.dependencies]
+python = '^3.11'
+selenium = "^4.16.0"
+croco-selenium = "^0.1.5"
+imap-tools = "^1.5.0"
+pyotp = "^2.9.0"
+eth-account = "^0.11.0"
+pyperclip = "^1.8.2"
+2captcha-python = "^1.2.2"
+faker = "^24.3.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+python-dotenv = "^1.0.1"
+adspower = "^1.0.0"
+build = "^1.1.1"
+twine = "^5.0.0"
+
+[build-system]
+requires = ['poetry-core']
+build-backend = 'poetry.core.masonry.api'
