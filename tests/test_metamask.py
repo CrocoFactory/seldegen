@@ -20,3 +20,8 @@ def test_sign_in(function_driver, credentials):
 def test_import_account(metamask, credentials):
     metamask.import_account(credentials['TEST_PRIVATE_KEY'])
     time.sleep(120)
+
+    
+def test_switch_network(metamask):
+    network = 'Linea'
+    metamask.switch_network(network)

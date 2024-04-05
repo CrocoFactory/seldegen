@@ -2,7 +2,7 @@ import time
 from eth_account import Account
 from selenium.common import TimeoutException, ElementClickInterceptedException, NoSuchWindowException
 from selenium.webdriver.chrome.webdriver import WebDriver
-from croco_selenium.decorators import handle_pop_up
+from croco_selenium.decorators import handle_pop_up, handle_in_new_tab
 from typing import Literal, cast, Self, Optional
 from seldegen.abc.wallet import Wallet
 from croco_selenium import ActionPerformer
@@ -204,7 +204,8 @@ class Metamask(Wallet):
         public_key = account.address
 
         time.sleep(2)
-        action_performer.click(_DEFAULT_TIMEOUT, '//button[@data-testid="popover-close"]')
+        action_performer.click(_DEFAULT_TIMEOUT, '//button[@data-testid="popover-close"]',
+                               ignored_exceptions=TimeoutException)
         action_performer.click(_DEFAULT_TIMEOUT, '//button[@data-testid="account-menu-icon"]')
         action_performer.click(_DEFAULT_TIMEOUT, '//*[@id="popover-content"]/div/div/section/div[2]/div/div[2]/div[2]/button')
         action_performer.send_keys(_DEFAULT_TIMEOUT, '//input[@id="private-key-box"]', private_key)
@@ -213,6 +214,26 @@ class Metamask(Wallet):
         self._private_key = private_key
         self._public_key = public_key
         self._accounts.append(WalletAccount(private_key=private_key, public_key=public_key))
+
+    @handle_in_new_tab()
+    def switch_network(self, network: str):
+        driver = self.driver
+        driver.get(self.extension_url)
+        action_performer = self._action_performer
+
+        action_performer.click(_DEFAULT_TIMEOUT, '//button[@data-testid="popover-close"]',
+                               ignored_exceptions=TimeoutException)
+
+        network_menu_xpath = '//button[contains(@class, "mm-picker-network")]'
+        action_performer.click(_DEFAULT_TIMEOUT, network_menu_xpath)
+
+        toogle_xpath = '//label[contains(@class, "toggle-button")]'
+        toogle_element = action_performer.get_element(_DEFAULT_TIMEOUT, toogle_xpath)
+        if 'off' in toogle_element.get_attribute('class'):
+            toogle_element.click()
+
+        network_xpath = f'//div[contains(@class, "multichain-network-list-item__network-name")]//span[contains(text(), "{network}")]'
+        action_performer.click(_DEFAULT_TIMEOUT, network_xpath)
 
     @handle_pop_up(timeout=_DEFAULT_TIMEOUT)
     def connect(
