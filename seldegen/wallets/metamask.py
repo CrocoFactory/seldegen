@@ -47,6 +47,8 @@ class Metamask(Wallet):
             private_key=private_key
         )
 
+        self.__popup_closed = False
+
     @staticmethod
     def __agree_to_terms(driver: WebDriver, signing_type: _SigningType) -> None:
         action_performer = ActionPerformer(driver)
@@ -190,6 +192,12 @@ class Metamask(Wallet):
         cls.__complete(driver)
         return cls(driver, password, ' '.join(mnemonic), extension_id)
 
+    def __close_pop_up(self) -> None:
+        action_performer = self._action_performer
+        if not self.__popup_closed:
+            action_performer.click(_DEFAULT_TIMEOUT, '//button[@data-testid="popover-close"]',
+                                   ignored_exceptions=TimeoutException)
+
     def import_account(self, private_key: str) -> None:
         """
         Imports an account using a private key
@@ -204,8 +212,8 @@ class Metamask(Wallet):
         public_key = account.address
 
         time.sleep(2)
-        action_performer.click(_DEFAULT_TIMEOUT, '//button[@data-testid="popover-close"]',
-                               ignored_exceptions=TimeoutException)
+
+        self.__close_pop_up()
         action_performer.click(_DEFAULT_TIMEOUT, '//button[@data-testid="account-menu-icon"]')
         action_performer.click(_DEFAULT_TIMEOUT, '//*[@id="popover-content"]/div/div/section/div[2]/div/div[2]/div[2]/button')
         action_performer.send_keys(_DEFAULT_TIMEOUT, '//input[@id="private-key-box"]', private_key)
@@ -221,8 +229,7 @@ class Metamask(Wallet):
         driver.get(self.extension_url)
         action_performer = self._action_performer
 
-        action_performer.click(_DEFAULT_TIMEOUT, '//button[@data-testid="popover-close"]',
-                               ignored_exceptions=TimeoutException)
+        self.__close_pop_up()
 
         network_menu_xpath = '//button[contains(@class, "mm-picker-network")]'
         action_performer.click(_DEFAULT_TIMEOUT, network_menu_xpath)

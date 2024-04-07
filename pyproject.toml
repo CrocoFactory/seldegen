@@ -1,6 +1,6 @@
 [tool.poetry]
 name = 'seldegen'
-version = '0.1.2'
+version = '0.1.3'
 description = 'The package containing tools to warm up Web3-based project using Selenium'
 authors = ['Alexey <axbelenkov@gmail.com>']
 license = 'MIT'
