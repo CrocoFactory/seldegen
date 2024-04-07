@@ -197,6 +197,7 @@ class Metamask(Wallet):
         if not self.__popup_closed:
             action_performer.click(_DEFAULT_TIMEOUT, '//button[@data-testid="popover-close"]',
                                    ignored_exceptions=TimeoutException)
+            self.__popup_closed = True
 
     def import_account(self, private_key: str) -> None:
         """
