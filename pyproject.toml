@@ -1,12 +1,12 @@
 [tool.poetry]
 name = 'seldegen'
-version = '0.1.4'
+version = '0.1.4.post1'
 description = 'The package containing tools to warm up Web3-based project using Selenium'
 authors = ['Alexey <axbelenkov@gmail.com>']
 license = 'MIT'
 readme = 'README.md'
-repository = 'https://github.com/blnkoff/seldegen'
-homepage = 'https://github.com/blnkoff/seldegen'
+repository = 'https://github.com/CrocoFactory/seldegen'
+homepage = 'https://github.com/CrocoFactory/seldegen'
 classifiers = [
     'Development Status :: 4 - Beta',
     'Intended Audience :: Developers',

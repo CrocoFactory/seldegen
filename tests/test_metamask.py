@@ -1,5 +1,6 @@
 import time
 import pytest
+from eth_account import Account
 from seldegen import Metamask
 
 
@@ -13,7 +14,9 @@ def test_sign_up(function_driver):
 
 
 def test_sign_in(function_driver, credentials):
-    metamask = Metamask(function_driver, 'toTheMoon123', credentials['TEST_MNEMONIC'])
+    Account.enable_unaudited_hdwallet_features()
+    _, mnemonic = Account.create_with_mnemonic()
+    metamask = Metamask(function_driver, 'toTheMoon123', mnemonic)
     metamask.sign_in()
 
 
