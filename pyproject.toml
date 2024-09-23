@@ -1,16 +1,16 @@
 [tool.poetry]
 name = 'seldegen'
-version = '0.1.1'
+version = '0.1.4.post3'
 description = 'The package containing tools to warm up Web3-based project using Selenium'
 authors = ['Alexey <axbelenkov@gmail.com>']
 license = 'MIT'
 readme = 'README.md'
-repository = 'https://github.com/blnkoff/seldegen'
-homepage = 'https://github.com/blnkoff/seldegen'
+repository = 'https://github.com/CrocoFactory/seldegen'
+homepage = 'https://github.com/CrocoFactory/seldegen'
 classifiers = [
     'Development Status :: 4 - Beta',
     'Intended Audience :: Developers',
-    'Topic :: Software Development :: Libraries :: Python Module',
+    'Topic :: Software Development :: Libraries :: Python Modules',
     'Programming Language :: Python :: 3.11',
     'Programming Language :: Python :: 3 :: Only',
     'License :: OSI Approved :: MIT License',
@@ -22,7 +22,7 @@ packages = [{ include = 'seldegen' }]
 [tool.poetry.dependencies]
 python = '^3.11'
 selenium = "^4.16.0"
-croco-selenium = "^0.1.5"
+croco-selenium = "^0.1.6"
 imap-tools = "^1.5.0"
 pyotp = "^2.9.0"
 eth-account = "^0.11.0"
